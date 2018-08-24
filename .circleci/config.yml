@@ -20,7 +20,7 @@ jobs:
           name: "Build & Push Docker Image"
           command: |
             docker build -t hello_world .
-            docker tag ankr_ecr:latest 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
+            docker tag ankr_ecr:hello_world 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
             docker push 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on EC2 instance"
