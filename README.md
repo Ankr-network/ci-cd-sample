@@ -38,12 +38,20 @@ aws_secret_access_key = MY-SECRET-KEY
 ```
 or use environment variables, or specify it in the deploy commands. 
 
-then create the 'deploy.sh' script for circle ci to call the agent to deploy new ec2 instance, pull the images from ecr and run.
+setup an aws ec2 docker machine host and enable it to login to ecr
 ```
 docker-machine create --driver amazonec2 --amazonec2-open-port 8080 --amazonec2-region us-west-1 --amazonec2-instance-type t2.micro aws-ec2-host
 docker-machine ssh aws-ec2-host sudo usermod -a -G docker $USER
 docker-machine ssh aws-ec2-host eval $(aws ecr get-login --no-include-email --region us-west-1)
-docker-machine ssh aws-ec2-host docker run -d -p 8080:8080 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:latest
+```
+
+then create the 'deploy.sh' script for circle ci to call the agent to deploy new docker container, pull the images from ecr and run.
+```
+if [ "$(docker-machine ssh aws-ec2-host docker ps -q -f name=hello_world_container)" ]; then
+    docker-machine ssh aws-ec2-host docker stop hello_world_container
+    docker-machine ssh aws-ec2-host docker rm hello_world_container
+fi
+docker-machine ssh aws-ec2-host docker run -d --name=hello_world_container -p 8080:8080 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
 ```
 
 8. Create a folder named .circleci and add a file config.yml, populate the config.yml with the contents as in the repo, confirm and correct the ecr repo and deployment agent machine address, as in the following example:
