@@ -75,7 +75,8 @@ jobs:
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on EC2 instance"
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@13.236.1.107 "./deploy.sh"
+            chmod 400 jenkins.pem
+            ssh -i jenkins.pem -o StrictHostKeyChecking=no ubuntu@13.236.1.107 "./deploy.sh"
 ```
 
 9. Push this change up to GitHub, and will auto start building, and will launch your project on CircleCI eventually deploy on docker machine.
