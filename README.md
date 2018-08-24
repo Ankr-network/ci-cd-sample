@@ -19,7 +19,7 @@ docker run -d -p 8080:8080 hello-world
 ```
 then you should be able to use 'curl 192.168.99.100:8080' to get the "hello world"
 
-4. Connect github with circleci, signup on circlici with github account and authorize circleci to follow on the project repos in the github. 
+4. Connect github with circleci, signup on circlici with github account and authorize circleci to follow on the project repos in the github. Note that to allow circle to follow, the github user should have the admin access to the specific project repo.
 
 5. Setup AWS below circleci web interface: target-project -> settings -> Environment Variables
 ```
