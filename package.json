@@ -1,0 +1,28 @@
+{
+  "name": "helloworld",
+  "version": "1.0.0",
+  "description": "sample project for circleci",
+  "main": "index.js",
+  "scripts": {
+    "test": "curl http://localhost:8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ankr-network/ci-cd-sample-project.git"
+  },
+  "keywords": [
+    "github",
+    "circleci",
+    "docker",
+    "machine"
+  ],
+  "author": "hanping",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ankr-network/ci-cd-sample-project/issues"
+  },
+  "homepage": "https://github.com/Ankr-network/ci-cd-sample-project#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
