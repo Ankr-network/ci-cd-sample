@@ -25,4 +25,4 @@ jobs:
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on a new EC2 instance"
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
+            ssh -i jenkins.pem -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
