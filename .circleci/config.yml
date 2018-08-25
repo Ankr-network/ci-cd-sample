@@ -5,6 +5,9 @@ jobs:
       - image: circleci/python:2.7-jessie-node-browsers
     working_directory: ~/app
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "b8:c9:bd:e1:1c:ba:6f:56:6a:ee:21:4d:a7:eb:c9:86"
       - checkout
       - setup_remote_docker
       - run: 
@@ -25,5 +28,4 @@ jobs:
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on a new EC2 instance"
           command: |
-            chmod 400 jenkins.pem
-            ssh -i jenkins.pem -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
+            ssh -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
