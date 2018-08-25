@@ -47,11 +47,16 @@ docker-machine ssh aws-ec2-host eval $(aws ecr get-login --no-include-email --re
 
 then create the 'deploy.sh' script for circle ci to call the agent to deploy new docker container, pull the images from ecr and run.
 ```
-if [ "$(docker-machine ssh aws-ec2-host docker ps -q -f name=hello_world_container)" ]; then
-    docker-machine ssh aws-ec2-host docker stop hello_world_container
-    docker-machine ssh aws-ec2-host docker rm hello_world_container
+eval $(docker-machine env aws-ec2-host)
+eval $(aws ecr get-login --no-include-email --region us-west-1)
+docker pull 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
+
+if [ "$(docker ps -aq -f name=hello_world_container)" ]; then
+    docker stop hello_world_container
+    docker rm hello_world_container
 fi
-docker-machine ssh aws-ec2-host docker run -d --name=hello_world_container -p 8080:8080 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
+
+docker run -d --name=hello_world_container -p 8080:8080 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
 ```
 
 8. Create a folder named .circleci and add a file config.yml, populate the config.yml with the contents as in the repo, confirm and correct the ecr repo and deployment agent machine address, as in the following example:
@@ -63,6 +68,9 @@ jobs:
       - image: circleci/python:2.7-jessie-node-browsers
     working_directory: ~/app
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "b8:c9:bd:e1:1c:ba:6f:56:6a:ee:21:4d:a7:eb:c9:86"
       - checkout
       - setup_remote_docker
       - run:
@@ -81,10 +89,9 @@ jobs:
             docker tag hello_world:latest 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
             docker push 815280425737.dkr.ecr.us-west-1.amazonaws.com/ankr_ecr:hello_world
       - run:
-          name: "Pull Image on Docker Deployment Machine and Run on EC2 instance"
+          name: "Pull Image on Docker Deployment Machine and Run on a new EC2 instance"
           command: |
-            chmod 400 jenkins.pem
-            ssh -i jenkins.pem -o StrictHostKeyChecking=no ubuntu@13.236.1.107 "./deploy.sh"
+            ssh -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
 ```
 
 9. Push this change up to GitHub, and will auto start building, and will launch your project on CircleCI eventually deploy on docker machine.
