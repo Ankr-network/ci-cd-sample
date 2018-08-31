@@ -28,8 +28,4 @@ jobs:
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on a new EC2 instance"
           command: |
-<<<<<<< HEAD
-            ssh -o StrictHostKeyChecking=no ubuntu@54.219.168.46 "./deploy.sh"
-=======
             ssh -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
->>>>>>> 04cf12b9681f7568f3281f564d61e7ad23ed2f8a
