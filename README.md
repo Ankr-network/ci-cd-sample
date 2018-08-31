@@ -30,10 +30,10 @@ then you should be able to use 'curl 192.168.99.100:8080' to get the "hello worl
 
 6. Login AWS with the account above and select Services -> Elastic Container Service -> Amazon ECR Repositories and create ecr repository, e.g. "ankr_ecr"
 
-7. If not done yet, create an ec2 instance and install docker-machine as a deployment agent, e.g. 54.153.10.121, install awscli and configure the aws credentials. one way to configure credentials is to use the standard credential file for Amazon AWS ~/.aws/credentials file , which might look like:
+7. If not done yet, create an ec2 instance and install docker-machine as a deployment agent, e.g. 13.57.212.223, install awscli and configure the aws credentials. one way to configure credentials is to use the standard credential file for Amazon AWS ~/.aws/credentials file , which might look like:
 ```
 [default]
-aws_access_key_id = AKID1234567890
+aws_access_key_id = MY-ACCESS-KEY
 aws_secret_access_key = MY-SECRET-KEY
 ```
 or use environment variables, or specify it in the deploy commands. 
