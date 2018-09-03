@@ -70,10 +70,10 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "b8:c9:bd:e1:1c:ba:6f:56:6a:ee:21:4d:a7:eb:c9:86"
+            - "d4:05:06:3d:87:b7:01:c8:b3:a4:f8:42:9f:62:ac:5b"
       - checkout
       - setup_remote_docker
-      - run:
+      - run: 
           name: Install AWSCLI
           command: |
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
@@ -91,9 +91,9 @@ jobs:
       - run:
           name: "Pull Image on Docker Deployment Machine and Run on a new EC2 instance"
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@54.153.10.121 "./deploy.sh"
+            ssh -o StrictHostKeyChecking=no ubuntu@13.57.212.223 "./deploy.sh"
 ```
 
-9. Push this change up to GitHub, and will auto start building, and will launch your project on CircleCI eventually deploy on docker machine.
+9. Push this change up to GitHub, and will auto start building, and will launch your project on CircleCI eventually deploy the container on docker machine, as example here "curl http://54.241.166.78:8080/" should return "hello world".
 
 
