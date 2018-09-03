@@ -11,7 +11,7 @@ npm install express --save
 ```
 then create 'index.js' to serve the http request as in the repo
 
-3. Dockerize the nodejs app, create 'Dockerfile' to define the image as in the repo. To test the Dockerfile, install docker and docker-machine, then build the image, and run locally on docker- to test:
+3. Dockerize the nodejs app, create 'Dockerfile' to define the image as in the repo. To test the Dockerfile, install docker and docker-machine, then build the image, and run locally on default docker-machine to test:
 ```
 eval $(docker-machine env default)
 docker build -t hello-world .
