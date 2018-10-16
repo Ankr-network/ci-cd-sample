@@ -1,1 +1,1 @@
-add jenkins build script
+test: add jenkins build script
